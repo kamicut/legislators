@@ -1,0 +1,24 @@
+{
+  "name": "legislators",
+  "version": "0.0.0",
+  "description": "API to query legislators",
+  "main": "index.js",
+  "dependencies": {
+    "google-spreadsheet-stream": "~0.1.1",
+    "topcap": "~0.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kamicut/legislators.git"
+  },
+  "author": "Marc Farra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kamicut/legislators/issues"
+  },
+  "homepage": "https://github.com/kamicut/legislators"
+}
