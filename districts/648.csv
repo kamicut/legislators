@@ -1,0 +1,11 @@
+"","first_name","first_name_ar","last_name","last_name_ar","phone","fax","mobile","email","district","facebook","twitter","deputies_in_elections","party","party_ar","born_day","born_month","born_year","notes","id","district_id","party_id"
+"10","Saad","سعد الدين","Hariri","الحريري","","","","","Beirut III","https://www.facebook.com/Saad.R.Hariri","https://twitter.com/HaririSaad",NA,"Future Movement","تيار المستقبل",18,5,1970,"",9410,648,827
+"11","Ammar","عمار","Houry","حوري","01-982100","","","","Beirut III","","https://twitter.com/Ammarhoury",NA,"Future Movement","تيار المستقبل",NA,NA,1945,"",7350,648,827
+"12","Mohamad","محمد","Kabbani","قباني","01-801180/01-863601","01 362770","03 645111","","Beirut III","","",NA,"Future Movement","تيار المستقبل",NA,NA,1941,"",12252,648,827
+"13","Tamam","تمام","Salam","سلام","","","","team@tammamsalam.net","Beirut III","https://www.facebook.com/TammamSalam","https://twitter.com/salamTammam",NA,"Independent within 14 March","مستقل مع ١٤ آذار",NA,NA,1945,"",6982,648,852
+"14","Imad","عماد","El Hout","الحوت","01-814047","","03 316 737","","Beirut III","","",NA,"Islamic Group","الجماعة الإسلامية",22,10,1962,"",11140,648,743
+"15","Ghazi","غازي","Youssef","يوسف","01-987500","","03-444009","","Beirut III","","",NA,"Future Movement","تيار المستقبل",NA,NA,1954,"",9952,648,827
+"16","Ghazi","غازي","Aridi","العريضي","01-756200","01 756202","","info@ghaziaridi.org","Beirut III","","",NA,"Progressive Socialist Party","الحزب التقدمي الاشتراكي",17,9,1954,"",9414,648,28
+"17","Atef","عاطف","Majdalani","مجدلاني","01-997777","05 459339","03-342424","amajda@inco.com .lb","Beirut III","","",NA,"Future Movement","تيار المستقبل",NA,NA,1950,"",10939,648,827
+"18","Bassem","باسم","Chabb","الشاب","01-982100","","03-319336","","Beirut III","","",NA,"Future Movement","تيار المستقبل",NA,NA,1957,"",8071,648,827
+"19","Nabil","نبيل","de Freige","دو فريج","","","03-618466","ndefreige@cyberia.net.lb","Beirut III","","",NA,"Future Movement","تيار المستقبل",31,8,1955,"",14941,648,827
