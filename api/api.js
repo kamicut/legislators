@@ -42,5 +42,5 @@ server.get('/api/districts', list('districts'));
 server.get('/api/names', list('names'));
 server.get('/api/parties', list('parties'));
 
-server.listen(8080);
+server.listen(process.env.PORT || 5000);
 
