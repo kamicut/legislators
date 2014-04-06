@@ -69,7 +69,13 @@ module.exports = (function() {
 					kv = categoryDict[k] + '=%27' + params[k] +'%27%20';
 				}
 				if (k in booleanDict && params[k] === 'true') {
-					kv = booleanDict[k] +'!=%27%27%20';
+					if (params[k] === 'true') {
+						kv = booleanDict[k] +'!=%27%27%20';
+					} else if (params[k] === 'false') {
+						kv = booleanDict[k] +'=%27%27%20';
+					} else {
+						callback(new Error('Some or all of your parameters could not be processed.'), null);
+					}
 				}
 				if (k in setDict) {
 					kv = setDict[k]+'%20contains%20%27' + params[k] + '%27%20';
