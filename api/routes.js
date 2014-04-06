@@ -68,7 +68,7 @@ module.exports = (function() {
 				if (k in categoryDict) {
 					kv = categoryDict[k] + '=%27' + params[k] +'%27%20';
 				}
-				if (k in booleanDict && params[k] === 'true') {
+				if (k in booleanDict) {
 					if (params[k] === 'true') {
 						kv = booleanDict[k] +'!=""%20';
 					} else if (params[k] === 'false') {
