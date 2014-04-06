@@ -14,8 +14,6 @@ module.exports = (function() {
 		'gender': 'E',
 		'gender_ar': 'F',
 		'district': 'K',
-		'party': 'O',
-		'party_ar': 'P',
 		'sect': 'Q',
 		'born_day': 'R',
 		'born_month': 'S',
@@ -33,6 +31,8 @@ module.exports = (function() {
 	};
 	var setDict = {
 		'deputies_terms': 'N',
+		'party': 'O',
+		'party_ar': 'P',
 	};
 
 	function buildResponse(paramString, callback) {
