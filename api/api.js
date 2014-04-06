@@ -1,9 +1,11 @@
 var restify = require('restify');
 var routes  = require('./routes.js');
+var url = require('url');
 
 var server = restify.createServer({name: 'legislators-api'});
 
 server
+.use(restify.gzipResponse())
 .use(restify.fullResponse())
 .use(restify.queryParser({ mapParams: false }));
 
@@ -41,4 +43,7 @@ server.get('/districts', list('districts'));
 server.get('/names', list('names'));
 server.get('/parties', list('parties'));
 
-server.listen(process.env.PORT || 5000);
+server.listen(process.env.PORT || 5000, function(){
+	var parsedUrl = url.parse(server.url);
+	console.log("%s is running on port %s", server.name, parsedUrl.port );
+});
