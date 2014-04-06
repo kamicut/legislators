@@ -6,33 +6,29 @@ module.exports = (function() {
 	var baseUrl = 'https://docs.google.com/spreadsheet/tq?' +
 	'key=0Aqv3NjQVGHDbdGZNTXFiWlg4ZFFSdDhiSXU1d25MU1E&pub=1&tqx=out:csv';
 
-	var categoryDict = {
-		'first_name': 'A',
-		'first_name_ar': 'B',
-		'last_name': 'C',
-		'last_name_ar': 'D',
-		'gender': 'E',
-		'gender_ar': 'F',
-		'district': 'K',
-		'sect': 'Q',
-		'born_day': 'R',
-		'born_month': 'S',
-		'born_year': 'T',
-		'other_notes': 'V'
-	};
-	var booleanDict = {
-		'email': 'J',
-		'phone': 'G',
-		'fax': 'H',
-		'mobile': 'I',
-		'facebook': 'L',
-		'twitter': 'M',
-		'website': 'U',
-	};
-	var setDict = {
-		'deputies_terms': 'N',
-		'party': 'O',
-		'party_ar': 'P',
+	var dict = {
+		'first_name': {column: 'A', type: 'category'},
+		'first_name_ar': {column: 'B', type: 'category'},
+		'last_name': {column: 'C', type: 'category'},
+		'last_name_ar': {column: 'D', type: 'category'},
+		'gender': {column: 'E', type: 'category'},
+		'gender_ar': {column: 'F', type: 'category'},
+		'district': {column: 'K', type: 'category'},
+		'sect': {column: 'Q', type: 'category'},
+		'born_day': {column: 'R', type: 'category'},
+		'born_month': {column: 'S', type: 'category'},
+		'born_year': {column: 'T', type: 'category'},
+		'other_notes': {column: 'V', type: 'category'},
+		'email': {column: 'J', type: 'boolean'},
+		'phone': {column: 'G', type: 'boolean'},
+		'fax': {column: 'H', type: 'boolean'},
+		'mobile': {column: 'I', type: 'boolean'},
+		'facebook': {column: 'L', type: 'boolean'},
+		'twitter': {column: 'M', type: 'boolean'},
+		'website': {column: 'U', type: 'boolean'},
+		'deputies_terms': {column: 'N', type: 'set'},
+		'party': {column: 'O', type: 'set'},
+		'party_ar': {column: 'P', type: 'set'},
 	};
 
 	function buildResponse(paramString, callback) {
@@ -65,20 +61,22 @@ module.exports = (function() {
 			//Create the Query 
 			for (var k in params) {
 				var kv = '';
-				if (k in categoryDict) {
-					kv = categoryDict[k] + '=%27' + params[k] +'%27%20';
-				}
-				if (k in booleanDict) {
-					if (params[k] === 'true') {
-						kv = booleanDict[k] +'!=""%20';
-					} else if (params[k] === 'false') {
-						kv = booleanDict[k] +'=""%20';
-					} else {
-						callback(new Error('Some or all of your parameters could not be processed.'), null);
+				if (k in dict) {
+					if (dict[k].type === 'category') {
+						kv = dict[k].column + '=%27' + params[k] +'%27%20';
 					}
-				}
-				if (k in setDict) {
-					kv = setDict[k]+'%20contains%20%27' + params[k] + '%27%20';
+					if (dict[k].type === 'boolean') {
+						if (params[k] === 'true') {
+							kv = dict[k].column +'!=""%20';
+						} else if (params[k] === 'false') {
+							kv = dict[k].column +'=""%20';
+						} else {
+							callback(new Error('Some or all of your parameters could not be processed.'), null);
+						}
+					}
+					if (dict[k].type === 'set') {
+						kv = dict[k].column+'%20contains%20%27' + params[k] + '%27%20';
+					}
 				}
 				paramString += (numParams > 0)? 'and%20' + kv: kv;
 				numParams += 1;
@@ -92,24 +90,24 @@ module.exports = (function() {
 		},
 
 		districts: function(callback) {
-			var paramString = '&tq=select%20'+categoryDict.district +
-				',count('+categoryDict.first_name+')%20group%20by%20'+
-				categoryDict.district + '%20label%20count('+categoryDict.first_name+')%20' +
+			var paramString = '&tq=select%20'+dict.district.column +
+				',count('+dict.first_name.column+')%20group%20by%20'+
+				dict.district.column + '%20label%20count('+dict.first_name.column+')%20' +
 				'%27legislators%27';
 			buildResponse(paramString, callback);
 		},
 		parties: function(callback) {
-			var paramString = '&tq=select%20'+categoryDict.party + ',' + categoryDict.party_ar + 
-				',count('+categoryDict.first_name+')%20group%20by%20'+
-				categoryDict.party +',' + categoryDict.party_ar +
-				'%20label%20count('+categoryDict.first_name+')%20' +
+			var paramString = '&tq=select%20'+dict.party.column + ',' + dict.party_ar.column +
+				',count('+dict.first_name.column+')%20group%20by%20'+
+				dict.party.column +',' + dict.party_ar.column +
+				'%20label%20count('+dict.first_name.column+')%20' +
 				'%27legislators%27';
 			buildResponse(paramString, callback);
 		},
 		names: function(callback) {
-			var paramString = '&tq=select%20'+categoryDict.first_name + ',' +
-			categoryDict.last_name + ',' + categoryDict.first_name_ar + ',' +
-			categoryDict.last_name_ar;
+			var paramString = '&tq=select%20'+dict.first_name.column + ',' +
+			dict.last_name.column + ',' + dict.first_name_ar.column + ',' +
+			dict.last_name_ar.column;
 			buildResponse(paramString, callback);
 		},
 	};
