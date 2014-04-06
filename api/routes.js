@@ -70,9 +70,9 @@ module.exports = (function() {
 				}
 				if (k in booleanDict && params[k] === 'true') {
 					if (params[k] === 'true') {
-						kv = booleanDict[k] +'!=%27%27%20';
+						kv = booleanDict[k] +'!=""%20';
 					} else if (params[k] === 'false') {
-						kv = booleanDict[k] +'=%27%27%20';
+						kv = booleanDict[k] +'=""%20';
 					} else {
 						callback(new Error('Some or all of your parameters could not be processed.'), null);
 					}
