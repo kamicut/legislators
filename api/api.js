@@ -4,6 +4,7 @@ var routes  = require('./routes.js');
 var server = restify.createServer({name: 'legislators-api'});
 
 server
+.use(restify.gzipResponse())
 .use(restify.fullResponse())
 .use(restify.queryParser({ mapParams: false }));
 
