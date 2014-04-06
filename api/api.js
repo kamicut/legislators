@@ -7,17 +7,16 @@ server
 .use(restify.fullResponse())
 .use(restify.queryParser({ mapParams: false }));
 
-
 function dataHandler(res, next) {
 	'use strict';
 	return function(err, data) {
-			if (err) {
-				return next(err);
-			}
-			res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
-			res.end(JSON.stringify(data));
-			return next();
-		};
+		if (err) {
+			return next(err);
+		}
+		res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
+		res.end(JSON.stringify(data, null, 2));
+		return next();
+	};
 }
 
 function list(routeName) {
@@ -43,4 +42,3 @@ server.get('/names', list('names'));
 server.get('/parties', list('parties'));
 
 server.listen(process.env.PORT || 5000);
-
