@@ -77,9 +77,9 @@ module.exports = (function() {
 					if (dict[k].type === 'set') {
 						kv = dict[k].column+'%20contains%20%27' + params[k] + '%27%20';
 					}
+					paramString += (numParams > 0)? 'and%20' + kv: kv;
+					numParams += 1;
 				}
-				paramString += (numParams > 0)? 'and%20' + kv: kv;
-				numParams += 1;
 			}
 
 			//Create the JSON Object
