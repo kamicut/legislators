@@ -20,8 +20,20 @@ Important links:
 Usage
 =====
 
+The API is very simple to use and follows REST parameter conventions. A request to the API will return a JSON list of results according to the URL param string. 
+
+Users can either get a list of values such as the list of districts at the endpoint ``/districts``, or search for a subset of members of parliament using the endpoint ``/search``. 
+
+For example, here's the list of legislators that have a mobile phone in the district *Beirut I*
+
+.. code-block:: none
+
+	/search?mobile=true&district=Beirut%20I
+
+API details:
+
 .. toctree::
-	:maxdepth: 2
+	:maxdepth: 3
 
 	usage/search
 	usage/lists

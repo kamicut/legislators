@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="nouwweb 0.1 documentation" href="#" />
-    <link rel="next" title="Search" href="usage/search.html" /> 
+    <link rel="next" title="/search" href="usage/search.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,7 +34,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="usage/search.html" title="Search"
+          <a href="usage/search.html" title="/search"
              accesskey="N">next</a> |</li>
         <li><a href="#">nouwweb 0.1 documentation</a> &raquo;</li> 
       </ul>
@@ -61,13 +61,43 @@ The project is a joint effort by SMEX and Lamba Labs.</p>
 </div>
 <div class="section" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<p>The API is very simple to use and follows REST parameter conventions. A request to the API will return a JSON list of results according to the URL param string.</p>
+<p>Users can either get a list of values such as the list of districts at the endpoint <tt class="docutils literal"><span class="pre">/districts</span></tt>, or search for a subset of members of parliament using the endpoint <tt class="docutils literal"><span class="pre">/search</span></tt>.</p>
+<p>For example, here&#8217;s the list of legislators that have a mobile phone in the district <em>Beirut I</em></p>
+<div class="highlight-none"><div class="highlight"><pre>/search?mobile=true&amp;district=Beirut%20I
+</pre></div>
+</div>
+<p>API details:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="usage/search.html">Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/search.html"><tt class="docutils literal"><span class="pre">/search</span></tt></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage/search.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/search.html#parameters">Parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="usage/search.html#district">district</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage/search.html#deputies-terms">deputies_terms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage/search.html#party">party</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage/search.html#sect">sect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage/search.html#gender">gender</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage/search.html#mobile">mobile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage/search.html#phone">phone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage/search.html#fax">fax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage/search.html#twitter">twitter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage/search.html#facebook">facebook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage/search.html#email">email</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage/search.html#prettyprint">prettyprint</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="usage/lists.html">Lists</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="usage/lists.html#names"><tt class="docutils literal"><span class="pre">/names</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/lists.html#districts"><tt class="docutils literal"><span class="pre">/districts</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage/lists.html#parties"><tt class="docutils literal"><span class="pre">/parties</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/lists.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/lists.html#endpoints">Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="usage/lists.html#names"><tt class="docutils literal"><span class="pre">/names</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage/lists.html#districts"><tt class="docutils literal"><span class="pre">/districts</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage/lists.html#parties"><tt class="docutils literal"><span class="pre">/parties</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage/lists.html#sects"><tt class="docutils literal"><span class="pre">/sects</span></tt></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -106,7 +136,7 @@ The project is a joint effort by SMEX and Lamba Labs.</p>
 
   <h4>Next topic</h4>
   <p class="topless"><a href="usage/search.html"
-                        title="next chapter">Search</a></p>
+                        title="next chapter"><tt class="docutils literal"><span class="pre">/search</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/index.txt"
@@ -136,7 +166,7 @@ The project is a joint effort by SMEX and Lamba Labs.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="usage/search.html" title="Search"
+          <a href="usage/search.html" title="/search"
              >next</a> |</li>
         <li><a href="#">nouwweb 0.1 documentation</a> &raquo;</li> 
       </ul>
