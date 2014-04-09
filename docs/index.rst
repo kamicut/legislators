@@ -3,14 +3,35 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to nouwweb's documentation!
+Lebanese Parliament API (nouwweb)
 ===================================
 
-Contents:
+About
+=====
+This is an API to query information about Lebanese members of parliament. The current data reflects the 2009 Parliament.
+The project is a joint effort by SMEX and Lamba Labs.
+
+Important links:
+
+* Repository:    https://github.com/kamicut/legislators
+* Issues:        https://github.com/kamicut/legislators/issues
+* Documentation: http://nouwweb.rtfd.org/
+
+Usage
+=====
 
 .. toctree::
-   :maxdepth: 2
+	:maxdepth: 2
 
+	usage/search
+	usage/lists
+
+
+Contributing
+=============
+
+Authors
+=======
 
 
 Indices and tables
