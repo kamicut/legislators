@@ -1,8 +1,5 @@
-``/search``
+Search
 ===========
-
-Description
------------
 
 The ``/search`` endpoint is the main access to the API and allows the user to find information about the current members of parliament. There are multiple paramaters that can be added to the URL to filter and group the results of a query. 
 
@@ -18,8 +15,6 @@ If a value contains a space such as ``Beirut I`` it should be `properly encoded 
 
 	/search?mobile=true&district=Beirut%20I
 
-Parameters
------------
 
 The parameters are:
 
@@ -41,7 +36,7 @@ The parameters are:
 In some parameters such as ``district`` and ``parties``, the value of the parameter has to correspond to an existing value from a list we provide at a different API endpoint such as ``/districts`` and ``/parties``.
 
 district
-^^^^^^^^
+---------
 The district that the member of parliament represents. The name should be one that appears at the API endpoint ``/districts``
 
 .. code-block:: none
@@ -50,7 +45,7 @@ The district that the member of parliament represents. The name should be one th
 	&district=Metn
 
 deputies_terms
-^^^^^^^^^^^^^^^^
+------------------
 The terms in parliament in which the legislator has been elected.
 
 .. code-block:: none
@@ -59,7 +54,7 @@ The terms in parliament in which the legislator has been elected.
 	&deputies_term=1992
 
 party
-^^^^^^^^
+---------
 The legislators that belong to a certain political party. The name should be one that appears at the API endpoint ``/parties``
 
 .. code-block:: none
@@ -68,7 +63,7 @@ The legislators that belong to a certain political party. The name should be one
 	&party=Zahle%20Bloc
 
 sect
-^^^^^^^^
+---------
 The legislators that belong to a certain sect. The name should be one that appears at the API endpoint ``/sects``
 
 .. code-block:: none
@@ -77,7 +72,7 @@ The legislators that belong to a certain sect. The name should be one that appea
 	&sect=Maronite
 
 gender
-^^^^^^^^
+---------
 Can be either ``Female`` or ``Male``.
 
 .. code-block:: none
@@ -86,7 +81,7 @@ Can be either ``Female`` or ``Male``.
 	&gender=Female
 
 mobile
-^^^^^^^^
+---------
 Can be either ``true`` or ``false``. Lists representatives for which we have a mobile number.
 
 .. code-block:: none
@@ -95,7 +90,7 @@ Can be either ``true`` or ``false``. Lists representatives for which we have a m
 	&mobile=true
 
 phone
-^^^^^^^^
+---------
 Can be either ``true`` or ``false``. Lists representatives for which we have a landline number.
 
 .. code-block:: none
@@ -104,7 +99,7 @@ Can be either ``true`` or ``false``. Lists representatives for which we have a l
 	&phone=true
 
 fax
-^^^^^^^^
+---------
 Can be either ``true`` or ``false``. Lists representatives for which we have a fax number.
 
 .. code-block:: none
@@ -113,7 +108,7 @@ Can be either ``true`` or ``false``. Lists representatives for which we have a f
 	&fax=true
 
 twitter
-^^^^^^^^
+---------
 Can be either ``true`` or ``false``. Lists representatives that have a twitter account.
 
 .. code-block:: none
@@ -122,7 +117,7 @@ Can be either ``true`` or ``false``. Lists representatives that have a twitter a
 	&twitter=true
 
 facebook
-^^^^^^^^
+---------
 Can be either ``true`` or ``false``. Lists representatives that have a facebook account.
 
 .. code-block:: none
@@ -131,7 +126,7 @@ Can be either ``true`` or ``false``. Lists representatives that have a facebook 
 	&facebook=true
 
 email
-^^^^^^^^
+---------
 Can be either ``true`` or ``false``. Lists representatives that have an email account.
 
 .. code-block:: none
@@ -140,6 +135,6 @@ Can be either ``true`` or ``false``. Lists representatives that have an email ac
 	&email=true
 
 prettyprint
-^^^^^^^^^^^^^^^^
+------------------
 Can be either ``true`` or ``false``. Indents the response for pretty printing. 
 
