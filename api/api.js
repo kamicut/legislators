@@ -46,6 +46,8 @@ server.get('/search', function(req, res, next) {
 server.get('/districts', list('districts'));
 server.get('/names', list('names'));
 server.get('/parties', list('parties'));
+server.get('/sects', list('sects'));
+
 
 server.listen(process.env.PORT || 5000, function(){
 	'use strict';

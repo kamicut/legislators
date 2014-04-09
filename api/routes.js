@@ -96,6 +96,13 @@ module.exports = (function() {
 				'%27legislators%27';
 			buildResponse(paramString, callback);
 		},
+		sects: function(callback) {
+			var paramString = '&tq=select%20'+dict.sect.column +
+				',count('+dict.first_name.column+')%20group%20by%20'+
+				dict.sect.column + '%20label%20count('+dict.first_name.column+')%20' +
+				'%27legislators%27';
+			buildResponse(paramString, callback);
+		},
 		parties: function(callback) {
 			var paramString = '&tq=select%20'+dict.party.column + ',' + dict.party_ar.column +
 				',count('+dict.first_name.column+')%20group%20by%20'+
