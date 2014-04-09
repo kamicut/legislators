@@ -15,25 +15,9 @@ If a value contains a space such as ``Beirut I`` it should be `properly encoded 
 
 	/search?mobile=true&district=Beirut%20I
 
-
-The parameters are:
-
-	* district
-	* deputies_terms
-	* party
-	* gender
-	* mobile
-	* phone
-	* fax
-	* twitter
-	* facebook
-	* email
-	* sect
-	* prettyprint
-
 .. note::
 
-In some parameters such as ``district`` and ``parties``, the value of the parameter has to correspond to an existing value from a list we provide at a different API endpoint such as ``/districts`` and ``/parties``.
+	In some parameters such as ``district`` and ``parties``, the value of the parameter has to correspond to an existing value from a list we provide at a different API endpoint such as ``/districts`` and ``/parties``.
 
 district
 ---------
