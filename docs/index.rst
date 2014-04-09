@@ -28,12 +28,12 @@ For example, here's the list of legislators that have a mobile phone in the dist
 
 .. code-block:: none
 
-	/search?mobile=true&district=Beirut%20I
+	curl 'http://api.nouwweb.pw/search?mobile=true&district=Beirut%20I&prettyprint=true'
 
 API details:
 
 .. toctree::
-	:maxdepth: 3
+	:maxdepth: 2
 
 	usage/search
 	usage/lists

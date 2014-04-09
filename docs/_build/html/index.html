@@ -64,7 +64,7 @@ The project is a joint effort by SMEX and Lamba Labs.</p>
 <p>The API is very simple to use and follows REST parameter conventions. A request to the API will return a JSON list of results according to the URL param string.</p>
 <p>Users can either get a list of values such as the list of districts at the endpoint <tt class="docutils literal"><span class="pre">/districts</span></tt>, or search for a subset of members of parliament using the endpoint <tt class="docutils literal"><span class="pre">/search</span></tt>.</p>
 <p>For example, here&#8217;s the list of legislators that have a mobile phone in the district <em>Beirut I</em></p>
-<div class="highlight-none"><div class="highlight"><pre>/search?mobile=true&amp;district=Beirut%20I
+<div class="highlight-none"><div class="highlight"><pre>curl &#39;http://api.nouwweb.pw/search?mobile=true&amp;district=Beirut%20I&amp;prettyprint=true&#39;
 </pre></div>
 </div>
 <p>API details:</p>

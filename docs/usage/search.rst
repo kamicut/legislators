@@ -9,7 +9,7 @@ To add a parameter it should be in the form:
 
 	&key=value
 
-If a value contains a space such as ``Beirut I`` it should be `properly encoded <https://en.wikipedia.org/wiki/Percent-encoding>`_. As an example, here's the endpoint for all the legislators in ``Beirut I`` that have a mobile phone.
+If a value contains a space it should be `properly encoded <https://en.wikipedia.org/wiki/Percent-encoding>`_. As an example, here's the endpoint for all the legislators in ``Beirut I`` that have a mobile phone.
 
 .. code-block:: none
 
