@@ -2,6 +2,9 @@
 // Generated on 2014-04-09 using generator-gulp-webapp 0.0.6
 
 var gulp = require('gulp');
+var react = require('gulp-react');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
 var open = require('open');
 var wiredep = require('wiredep').stream;
 
@@ -21,6 +24,15 @@ gulp.task('styles', function () {
         .pipe($.size());
 });
 
+//JSX
+gulp.task('jsx', function() {
+    return gulp.src('app/scripts/**/*.jsx')
+        .pipe(react())
+        .pipe(rename('filters.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('app/scripts'));
+});
+
 // Scripts
 gulp.task('scripts', function () {
     return gulp.src('app/scripts/**/*.js')
@@ -30,7 +42,7 @@ gulp.task('scripts', function () {
 });
 
 // HTML
-gulp.task('html', ['styles', 'scripts'], function () {
+gulp.task('html', ['styles', 'jsx', 'scripts'], function () {
     var jsFilter = $.filter('**/*.js');
     var cssFilter = $.filter('**/*.css');
 
@@ -124,7 +136,8 @@ gulp.task('watch', ['connect', 'serve'], function () {
         'app/*.html',
         'app/styles/**/*.scss',
         'app/scripts/**/*.js',
-        'app/images/**/*'
+        'app/images/**/*',
+        'app/scripts/**/*.jsx'
     ], function (event) {
         return gulp.src(event.path)
             .pipe($.connect.reload());
@@ -132,6 +145,9 @@ gulp.task('watch', ['connect', 'serve'], function () {
 
     // Watch .scss files
     gulp.watch('app/styles/**/*.scss', ['styles']);
+
+    // Watch .jsx files
+    gulp.watch('app/scripts/**/*.jsx', ['jsx']);
 
     // Watch .js files
     gulp.watch('app/scripts/**/*.js', ['scripts']);

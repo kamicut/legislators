@@ -1,7 +1,9 @@
 {
   "name": "legislators-website",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "gulp-react": "~0.3.3"
+  },
   "devDependencies": {
     "gulp": "~3.5.0",
     "gulp-load-plugins": "~0.5.0",

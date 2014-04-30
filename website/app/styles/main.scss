@@ -94,6 +94,46 @@ footer {
     margin-bottom: 10px;
 }
 
+.selector {
+    float: left; 
+    margin-right: 20px;
+}
+
+#search {
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+#content {
+    select {
+        width: 100px;
+    }
+}
+
+.list {
+    padding-top: 20px;
+}
+.card {
+    width: 45%;
+    height: 250px;
+    float:left;
+    margin:10px;
+    border: 1px solid black;
+    padding: 6px;
+
+    ul {
+        list-style-type: none;
+        padding-left: 5px;
+    }
+}
+
+@media screen and (min-width: 500px) {
+
+    .card {
+        width: 100%;
+    }
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .container {
