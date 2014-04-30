@@ -68,7 +68,10 @@ footer {
     padding-left: 0px;
 }
 
-.col-md-8 .col-md-6 {
+#nav {
+    margin: 20px;
+}
+.col-md-8 .col-md-12 {
     p {
        padding-left:0px; 
     }
@@ -96,15 +99,31 @@ footer {
 
 .selector {
     float: left; 
-    margin-right: 20px;
+    margin-left: 20px;
 }
 
+.list {
+    margin-top: 20px;
+    clear: both;
+}
+
+.searchBar {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.filterBar {
+    width: 70%;
+    height: 20px;
+    margin: 0 auto;
+}
 #search {
-    width: 300px;
+    width: 50%;
     margin-bottom: 10px;
 }
 
 #content {
+
     select {
         width: 100px;
     }
@@ -127,7 +146,7 @@ footer {
     }
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (max-width: 768px) {
 
     .card {
         width: 100%;

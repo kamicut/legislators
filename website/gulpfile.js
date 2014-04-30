@@ -29,7 +29,7 @@ gulp.task('jsx', function() {
     return gulp.src('app/scripts/**/*.jsx')
         .pipe(react())
         .pipe(rename('filters.js'))
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(gulp.dest('app/scripts'));
 });
 

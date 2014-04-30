@@ -1,20 +1,19 @@
-/** @jsx React.DOM */
 (function() {
 'use strict';
 var Card = React.createClass({
 	render: function() {
 		var legislator = this.props.legislator;
 		var email = legislator.email.trim().length > 0?
-			<a href={"mailto:"+legislator.email.trim()}>Email</a> :
-			""
+			<a href={'mailto:'+legislator.email.trim()}>Email</a> :
+			''
 
 		var twitter = legislator.twitter.trim().length > 0?
 			<a href={legislator.twitter}>Twitter</a> : 
-			""
+			''
 
 		var facebook = legislator.facebook.trim().length > 0?
 			<a href={legislator.facebook}>Facebook</a> : 
-			""
+			''
 
 		var anySocial = (facebook + twitter + email).length == 0?
 			"Not Available" : ""
@@ -64,7 +63,7 @@ var SearchBar = React.createClass({
 	},
 	render: function() {
 		return (
-			<form>
+			<form className="searchBar">
 				<input type="text" id="search" placeholder="Search..." value={this.props.filterText} 
 					onChange={this.handleChange}
 					ref="filterTextInput" />
@@ -113,22 +112,23 @@ var FilterBar = React.createClass({
 			return <option value={sect}>{sect}</option>
 		})
 		return (
-			<form>
-			<div className="selector">Sect: 
+			<form className="filterBar">
+			<div className="selector">
+			<span>Sect:  </span>
 			<select ref="sectInput" value={this.props.sect} onChange={this.handleChange}>
 				<option value='All'>All</option>
 				{sectOptions}
 			</select>
 			</div >
 			<div className="selector">
-			Party: 
+			<span>Party:  </span>
 			<select ref="partyInput" value={this.props.party} onChange={this.handleChange}>
 				<option value='All'>All</option>
 				{partyOptions}
 			</select>
 			</div>
 			<div className="selector">
-			District: 
+			<span>District:  </span>
 			<select ref="districtInput" value={this.props.district} onChange={this.handleChange}>
 				<option value='All'>All</option>
 				{districtOptions}
@@ -144,7 +144,7 @@ var FilterableTable = React.createClass({
 	handleNewData: function(data) {
 		this.setState({
 			legislators: data,
-		})
+		});
 	},
 	componentWillMount: function() {
 		var that = this;
@@ -177,22 +177,22 @@ var FilterableTable = React.createClass({
 	handleSearchInput: function(filterText) {
 		this.setState({
 			filterText: filterText,
-		})
+		});
 	},
 	handleFilterInput: function(district, sect, party) {
 		this.setState({
 			district: district,
 			sect: sect,
 			party: party
-		})
+		});
 	},
 	render: function() {
 		return (
 			<div>
 				<SearchBar onUserInput={this.handleSearchInput} filterText={this.state.filterText} />
 				<FilterBar 
-					onUserInput={this.handleFilterInput} 
-					legislators={this.state.legislators} 
+					onUserInput={this.handleFilterInput}
+					legislators={this.state.legislators}
 					district={this.state.district}
 					sect={this.state.sect}
 					party={this.state.party} />
@@ -203,12 +203,12 @@ var FilterableTable = React.createClass({
 					sect={this.state.sect}
 					party={this.state.party} />
 			</div>
-		)
+		);
 	}
 })
 
 React.renderComponent(
-	<FilterableTable url="scripts/2009.json" />,
+	<FilterableTable url="http://api.nouwweb.pw/search?deputies_terms=2009" />,
 	document.getElementById('content')
 );
 }());
