@@ -6612,58 +6612,31 @@ footer {
   margin-bottom: 10px;
 }
 
-.selector {
-  float: left;
-  margin-left: 20px;
+.selector select {
+  max-width: 100px;
 }
 
-.list {
-  margin-top: 20px;
-  clear: both;
+.selector label {
+  margin-right: 10px;
 }
 
 .searchBar {
-  margin: 0 auto;
   text-align: center;
+  margin-bottom: 20px;
+}
+.searchBar input {
+  width: 50%;
 }
 
 .filterBar {
-  width: 70%;
-  height: 20px;
-  margin: 0 auto;
-}
-
-#search {
-  width: 50%;
-  margin-bottom: 10px;
-}
-
-#content select {
-  width: 100px;
-}
-
-.list {
-  padding-top: 20px;
+  margin-bottom: 20px;
 }
 
 .card {
-  width: 45%;
-  height: 250px;
-  float: left;
-  margin: 10px;
-  border: 1px solid black;
   padding: 6px;
-}
-.card ul {
-  list-style-type: none;
-  padding-left: 5px;
+  height: 250px;
 }
 
-@media screen and (max-width: 768px) {
-  .card {
-    width: 100%;
-  }
-}
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {

@@ -3,6 +3,7 @@
 'use strict';
 var Card = React.createClass({displayName: 'Card',
 	render: function() {
+		console.log("rendering");
 		var legislator = this.props.legislator;
 		var email = legislator.email.trim().length > 0?
 			React.DOM.a( {href:'mailto:'+legislator.email.trim()}, "Email") :
@@ -18,9 +19,9 @@ var Card = React.createClass({displayName: 'Card',
 
 		var anySocial = (facebook + twitter + email).length == 0?
 			"Not Available" : ""
-
 		return (
-			React.DOM.div( {className:"card"}, 
+
+			React.DOM.div( {className:"card col-md-6"}, 
 				React.DOM.h3(null, legislator.first_name + " " + legislator.last_name),
 				React.DOM.ul(null, 
 					React.DOM.li(null, React.DOM.strong(null, "District:"), " ", legislator.district || "Not Available"),
@@ -37,6 +38,7 @@ var Card = React.createClass({displayName: 'Card',
 });
 
 var Table = React.createClass({displayName: 'Table',
+	
 	render: function() {
 		var rows = [];
 		var lastCategory = null;
@@ -51,7 +53,7 @@ var Table = React.createClass({displayName: 'Table',
 			rows.push(Card( {legislator:legislator} ))
 		}.bind(this));
 		return (
-			React.DOM.div( {className:"list"}, 
+			React.DOM.div( {className:"list col-md-12"}, 
 			 rows
 			)
 		);
@@ -64,7 +66,7 @@ var SearchBar = React.createClass({displayName: 'SearchBar',
 	},
 	render: function() {
 		return (
-			React.DOM.form( {className:"searchBar"}, 
+			React.DOM.form( {className:"searchBar col-md-12"}, 
 				React.DOM.input( {type:"text", id:"search", placeholder:"Search...", value:this.props.filterText, 
 					onChange:this.handleChange,
 					ref:"filterTextInput"} )
@@ -113,27 +115,27 @@ var FilterBar = React.createClass({displayName: 'FilterBar',
 			return React.DOM.option( {value:sect}, sect)
 		})
 		return (
-			React.DOM.form( {className:"filterBar"}, 
-			React.DOM.div( {className:"selector"}, 
-			React.DOM.span(null, "Sect:  "  ),
+			React.DOM.form( {className:"filterBar col-md-12"}, 
+			React.DOM.div( {className:"selector col-md-4"}, 
+			React.DOM.span(null, React.DOM.label(null, "Sect:"),
 			React.DOM.select( {ref:"sectInput", value:this.props.sect, onChange:this.handleChange}, 
 				React.DOM.option( {value:"All"}, "All"),
 				sectOptions
-			)
+			), " " )
 			),
-			React.DOM.div( {className:"selector"}, 
-			React.DOM.span(null, "Party:  "  ),
+			React.DOM.div( {className:"selector col-md-4"}, 
+			React.DOM.span(null, React.DOM.label(null, "Party:"),
 			React.DOM.select( {ref:"partyInput", value:this.props.party, onChange:this.handleChange}, 
 				React.DOM.option( {value:"All"}, "All"),
 				partyOptions
-			)
+			), " " )
 			),
-			React.DOM.div( {className:"selector"}, 
-			React.DOM.span(null, "District:  "  ),
+			React.DOM.div( {className:"selector col-md-4"}, 
+			React.DOM.span(null, React.DOM.label(null, "District:"),
 			React.DOM.select( {ref:"districtInput", value:this.props.district, onChange:this.handleChange}, 
 				React.DOM.option( {value:"All"}, "All"),
 				districtOptions
-			)
+			))
 			)
 			)
 		)
@@ -142,6 +144,10 @@ var FilterBar = React.createClass({displayName: 'FilterBar',
 
 
 var FilterableTable = React.createClass({displayName: 'FilterableTable',
+	componentDidMount: function() {
+		console.log("mounted");
+		$("#img").hide();
+	},
 	handleNewData: function(data) {
 		this.setState({
 			legislators: data,
@@ -161,7 +167,7 @@ var FilterableTable = React.createClass({displayName: 'FilterableTable',
 			console.log("error");
 		})
 		.always(function() {
-			$("#img").hide();
+			
 			console.log("complete");
 		});
 		

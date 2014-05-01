@@ -2,6 +2,7 @@
 'use strict';
 var Card = React.createClass({
 	render: function() {
+		console.log("rendering");
 		var legislator = this.props.legislator;
 		var email = legislator.email.trim().length > 0?
 			<a href={'mailto:'+legislator.email.trim()}>Email</a> :
@@ -17,9 +18,9 @@ var Card = React.createClass({
 
 		var anySocial = (facebook + twitter + email).length == 0?
 			"Not Available" : ""
-
 		return (
-			<div className="card">
+
+			<div className="card col-md-6">
 				<h3>{legislator.first_name + " " + legislator.last_name}</h3>
 				<ul>
 					<li><strong>District:</strong> {legislator.district || "Not Available"}</li>
@@ -36,6 +37,7 @@ var Card = React.createClass({
 });
 
 var Table = React.createClass({
+	
 	render: function() {
 		var rows = [];
 		var lastCategory = null;
@@ -50,7 +52,7 @@ var Table = React.createClass({
 			rows.push(<Card legislator={legislator} />)
 		}.bind(this));
 		return (
-			<div className="list">
+			<div className="list col-md-12">
 			 {rows}
 			</div>
 		);
@@ -63,7 +65,7 @@ var SearchBar = React.createClass({
 	},
 	render: function() {
 		return (
-			<form className="searchBar">
+			<form className="searchBar col-md-12">
 				<input type="text" id="search" placeholder="Search..." value={this.props.filterText} 
 					onChange={this.handleChange}
 					ref="filterTextInput" />
@@ -112,27 +114,27 @@ var FilterBar = React.createClass({
 			return <option value={sect}>{sect}</option>
 		})
 		return (
-			<form className="filterBar">
-			<div className="selector">
-			<span>Sect:  </span>
+			<form className="filterBar col-md-12">
+			<div className="selector col-md-4">
+			<span><label>Sect:</label>
 			<select ref="sectInput" value={this.props.sect} onChange={this.handleChange}>
 				<option value='All'>All</option>
 				{sectOptions}
-			</select>
+			</select> </span>
 			</div >
-			<div className="selector">
-			<span>Party:  </span>
+			<div className="selector col-md-4">
+			<span><label>Party:</label>
 			<select ref="partyInput" value={this.props.party} onChange={this.handleChange}>
 				<option value='All'>All</option>
 				{partyOptions}
-			</select>
+			</select> </span>
 			</div>
-			<div className="selector">
-			<span>District:  </span>
+			<div className="selector col-md-4">
+			<span><label>District:</label>
 			<select ref="districtInput" value={this.props.district} onChange={this.handleChange}>
 				<option value='All'>All</option>
 				{districtOptions}
-			</select>
+			</select></span>
 			</div>
 			</form>
 		)
@@ -141,6 +143,10 @@ var FilterBar = React.createClass({
 
 
 var FilterableTable = React.createClass({
+	componentDidMount: function() {
+		console.log("mounted");
+		$("#img").hide();
+	},
 	handleNewData: function(data) {
 		this.setState({
 			legislators: data,
@@ -160,7 +166,7 @@ var FilterableTable = React.createClass({
 			console.log("error");
 		})
 		.always(function() {
-			$("#img").hide();
+			
 			console.log("complete");
 		});
 		
