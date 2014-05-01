@@ -3,7 +3,6 @@
 
 var gulp = require('gulp');
 var react = require('gulp-react');
-var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var open = require('open');
 var wiredep = require('wiredep').stream;
@@ -29,15 +28,14 @@ gulp.task('jsx', function() {
     return gulp.src('app/scripts/**/*.jsx')
         .pipe(react())
         .pipe(rename('filters.js'))
-        // .pipe(uglify())
         .pipe(gulp.dest('app/scripts'));
 });
 
 // Scripts
 gulp.task('scripts', function () {
     return gulp.src('app/scripts/**/*.js')
-        .pipe($.jshint('.jshintrc'))
-        .pipe($.jshint.reporter('default'))
+        // .pipe($.jshint('.jshintrc'))
+        // .pipe($.jshint.reporter('default'))
         .pipe($.size());
 });
 
