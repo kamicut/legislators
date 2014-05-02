@@ -10,11 +10,11 @@ var Card = React.createClass({displayName: 'Card',
 			''
 
 		var twitter = legislator.twitter.trim().length > 0?
-			React.DOM.a( {href:legislator.twitter}, "Twitter") : 
+			React.DOM.a( {href:legislator.twitter}, "Twitter") :
 			''
 
 		var facebook = legislator.facebook.trim().length > 0?
-			React.DOM.a( {href:legislator.facebook}, "Facebook") : 
+			React.DOM.a( {href:legislator.facebook}, "Facebook") :
 			''
 
 		var anySocial = (facebook + twitter + email).length == 0?
@@ -38,19 +38,28 @@ var Card = React.createClass({displayName: 'Card',
 });
 
 var Table = React.createClass({displayName: 'Table',
-	
 	render: function() {
 		var rows = [];
 		var lastCategory = null;
+		console.log(this.props)
 		this.props.legislators.forEach(function (legislator) {
 			var name = legislator.first_name + " " + legislator.last_name;
+			var canPush = true;
 			if (name.toLowerCase().indexOf(this.props.filterText.toLowerCase()) === -1 ||
 				(this.props.district !== 'All' && legislator.district !== this.props.district) ||
 				(this.props.sect !== 'All' && legislator.sect !== this.props.sect) ||
 				(this.props.party !== 'All' && legislator.party !== this.props.party)) {
-				return ;
+				canPush = canPush && false;
 			}
-			rows.push(Card( {legislator:legislator} ))
+			if (this.props.social) {
+				this.props.social.forEach(function(socialAccount) {
+					if (legislator[socialAccount].trim().length === 0) {
+						canPush = canPush && false;
+						console.log(canPush)
+					}
+				});
+			}
+			if (canPush) rows.push(Card( {legislator:legislator} ))
 		}.bind(this));
 		return (
 			React.DOM.div( {className:"list col-md-12"}, 
@@ -67,7 +76,7 @@ var SearchBar = React.createClass({displayName: 'SearchBar',
 	render: function() {
 		return (
 			React.DOM.form( {className:"searchBar col-md-12"}, 
-				React.DOM.input( {type:"text", id:"search", placeholder:"Search...", value:this.props.filterText, 
+				React.DOM.input( {type:"text", id:"search", placeholder:"Search...", value:this.props.filterText,
 					onChange:this.handleChange,
 					ref:"filterTextInput"} )
 			)
@@ -77,12 +86,14 @@ var SearchBar = React.createClass({displayName: 'SearchBar',
 });
 
 var FilterBar = React.createClass({displayName: 'FilterBar',
-	handleChange: function() {
-		this.props.onUserInput(
-			this.refs.districtInput.getDOMNode().value,
-			this.refs.sectInput.getDOMNode().value,
-			this.refs.partyInput.getDOMNode().value
-		);
+	handleChange: function(key) {
+		return function(a,b,c) {
+			if (key !== 'social') {
+				this.props.onUserInput(key, b.selected);
+			} else {
+				this.props.onUserInput(key, c);
+			}
+		}.bind(this)
 	},
 	render: function() {
 		var districts = [];
@@ -116,25 +127,33 @@ var FilterBar = React.createClass({displayName: 'FilterBar',
 		})
 		return (
 			React.DOM.form( {className:"filterBar col-md-12"}, 
-			React.DOM.div( {className:"selector col-md-4"}, 
+			React.DOM.div( {className:"selector col-md-3"}, 
 			React.DOM.span(null, React.DOM.label(null, "Sect:"),
-			React.DOM.select( {ref:"sectInput", value:this.props.sect, onChange:this.handleChange}, 
+			Chosen( {ref:"sectInput", width:"150px", value:this.props.sect, onChange:this.handleChange("sect")}, 
 				React.DOM.option( {value:"All"}, "All"),
 				sectOptions
 			), " " )
 			),
-			React.DOM.div( {className:"selector col-md-4"}, 
+			React.DOM.div( {className:"selector col-md-3"}, 
 			React.DOM.span(null, React.DOM.label(null, "Party:"),
-			React.DOM.select( {ref:"partyInput", value:this.props.party, onChange:this.handleChange}, 
+			Chosen( {ref:"partyInput", width:"150px", value:this.props.party, onChange:this.handleChange("party")}, 
 				React.DOM.option( {value:"All"}, "All"),
 				partyOptions
 			), " " )
 			),
-			React.DOM.div( {className:"selector col-md-4"}, 
+			React.DOM.div( {className:"selector col-md-3"}, 
 			React.DOM.span(null, React.DOM.label(null, "District:"),
-			React.DOM.select( {ref:"districtInput", value:this.props.district, onChange:this.handleChange}, 
+			Chosen( {ref:"districtInput", width:"150px", value:this.props.district, onChange:this.handleChange("district")}, 
 				React.DOM.option( {value:"All"}, "All"),
 				districtOptions
+			))
+			),
+			React.DOM.div( {className:"selector col-md-3"}, 
+			React.DOM.span(null, React.DOM.label(null, "Social:"),
+			Chosen( {ref:"Social", multiple:true, width:"150px", onChange:this.handleChange("social")}, 
+				React.DOM.option( {value:"facebook"}, "Facebook"),
+				React.DOM.option( {value:"twitter"}, "Twitter"),
+				React.DOM.option( {value:"email"}, "Email")
 			))
 			)
 			)
@@ -167,10 +186,10 @@ var FilterableTable = React.createClass({displayName: 'FilterableTable',
 			console.log("error");
 		})
 		.always(function() {
-			
+
 			console.log("complete");
 		});
-		
+
 	},
 	getInitialState: function() {
 		return {
@@ -179,6 +198,7 @@ var FilterableTable = React.createClass({displayName: 'FilterableTable',
 			district: 'All',
 			sect: 'All',
 			party: 'All',
+			social: [],
 		};
 	},
 	handleSearchInput: function(filterText) {
@@ -186,29 +206,30 @@ var FilterableTable = React.createClass({displayName: 'FilterableTable',
 			filterText: filterText,
 		});
 	},
-	handleFilterInput: function(district, sect, party) {
-		this.setState({
-			district: district,
-			sect: sect,
-			party: party
-		});
+	handleFilterInput: function(key, value) {
+		var stateChange = {};
+		stateChange[key] = value;
+		console.log(value);
+		this.setState(stateChange);
 	},
 	render: function() {
 		return (
 			React.DOM.div(null, 
 				SearchBar( {onUserInput:this.handleSearchInput, filterText:this.state.filterText} ),
-				FilterBar( 
+				FilterBar(
 					{onUserInput:this.handleFilterInput,
 					legislators:this.state.legislators,
 					district:this.state.district,
 					sect:this.state.sect,
 					party:this.state.party} ),
-				Table( 
-					{legislators:this.state.legislators, 
+				Table(
+					{legislators:this.state.legislators,
 					filterText:this.state.filterText,
 					district:this.state.district,
+					social:this.state.social,
 					sect:this.state.sect,
-					party:this.state.party} )
+					party:this.state.party}
+					)
 			)
 		);
 	}

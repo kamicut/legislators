@@ -9,11 +9,11 @@ var Card = React.createClass({
 			''
 
 		var twitter = legislator.twitter.trim().length > 0?
-			<a href={legislator.twitter}>Twitter</a> : 
+			<a href={legislator.twitter}>Twitter</a> :
 			''
 
 		var facebook = legislator.facebook.trim().length > 0?
-			<a href={legislator.facebook}>Facebook</a> : 
+			<a href={legislator.facebook}>Facebook</a> :
 			''
 
 		var anySocial = (facebook + twitter + email).length == 0?
@@ -37,19 +37,28 @@ var Card = React.createClass({
 });
 
 var Table = React.createClass({
-	
 	render: function() {
 		var rows = [];
 		var lastCategory = null;
+		console.log(this.props)
 		this.props.legislators.forEach(function (legislator) {
 			var name = legislator.first_name + " " + legislator.last_name;
+			var canPush = true;
 			if (name.toLowerCase().indexOf(this.props.filterText.toLowerCase()) === -1 ||
 				(this.props.district !== 'All' && legislator.district !== this.props.district) ||
 				(this.props.sect !== 'All' && legislator.sect !== this.props.sect) ||
 				(this.props.party !== 'All' && legislator.party !== this.props.party)) {
-				return ;
+				canPush = canPush && false;
 			}
-			rows.push(<Card legislator={legislator} />)
+			if (this.props.social) {
+				this.props.social.forEach(function(socialAccount) {
+					if (legislator[socialAccount].trim().length === 0) {
+						canPush = canPush && false;
+						console.log(canPush)
+					}
+				});
+			}
+			if (canPush) rows.push(<Card legislator={legislator} />)
 		}.bind(this));
 		return (
 			<div className="list col-md-12">
@@ -66,7 +75,7 @@ var SearchBar = React.createClass({
 	render: function() {
 		return (
 			<form className="searchBar col-md-12">
-				<input type="text" id="search" placeholder="Search..." value={this.props.filterText} 
+				<input type="text" id="search" placeholder="Search..." value={this.props.filterText}
 					onChange={this.handleChange}
 					ref="filterTextInput" />
 			</form>
@@ -76,12 +85,14 @@ var SearchBar = React.createClass({
 });
 
 var FilterBar = React.createClass({
-	handleChange: function() {
-		this.props.onUserInput(
-			this.refs.districtInput.getDOMNode().value,
-			this.refs.sectInput.getDOMNode().value,
-			this.refs.partyInput.getDOMNode().value
-		);
+	handleChange: function(key) {
+		return function(a,b,c) {
+			if (key !== 'social') {
+				this.props.onUserInput(key, b.selected);
+			} else {
+				this.props.onUserInput(key, c);
+			}
+		}.bind(this)
 	},
 	render: function() {
 		var districts = [];
@@ -115,26 +126,34 @@ var FilterBar = React.createClass({
 		})
 		return (
 			<form className="filterBar col-md-12">
-			<div className="selector col-md-4">
+			<div className="selector col-md-3">
 			<span><label>Sect:</label>
-			<select ref="sectInput" value={this.props.sect} onChange={this.handleChange}>
+			<Chosen ref="sectInput" width="150px" value={this.props.sect} onChange={this.handleChange("sect")}>
 				<option value='All'>All</option>
 				{sectOptions}
-			</select> </span>
+			</Chosen> </span>
 			</div >
-			<div className="selector col-md-4">
+			<div className="selector col-md-3">
 			<span><label>Party:</label>
-			<select ref="partyInput" value={this.props.party} onChange={this.handleChange}>
+			<Chosen ref="partyInput" width="150px" value={this.props.party} onChange={this.handleChange("party")}>
 				<option value='All'>All</option>
 				{partyOptions}
-			</select> </span>
+			</Chosen> </span>
 			</div>
-			<div className="selector col-md-4">
+			<div className="selector col-md-3">
 			<span><label>District:</label>
-			<select ref="districtInput" value={this.props.district} onChange={this.handleChange}>
+			<Chosen ref="districtInput" width="150px" value={this.props.district} onChange={this.handleChange("district")}>
 				<option value='All'>All</option>
 				{districtOptions}
-			</select></span>
+			</Chosen></span>
+			</div>
+			<div className="selector col-md-3">
+			<span><label>Social:</label>
+			<Chosen ref="Social" multiple width="150px" onChange={this.handleChange("social")}>
+				<option value="facebook">Facebook</option>
+				<option value="twitter">Twitter</option>
+				<option value="email">Email</option>
+			</Chosen></span>
 			</div>
 			</form>
 		)
@@ -166,10 +185,10 @@ var FilterableTable = React.createClass({
 			console.log("error");
 		})
 		.always(function() {
-			
+
 			console.log("complete");
 		});
-		
+
 	},
 	getInitialState: function() {
 		return {
@@ -178,6 +197,7 @@ var FilterableTable = React.createClass({
 			district: 'All',
 			sect: 'All',
 			party: 'All',
+			social: [],
 		};
 	},
 	handleSearchInput: function(filterText) {
@@ -185,29 +205,30 @@ var FilterableTable = React.createClass({
 			filterText: filterText,
 		});
 	},
-	handleFilterInput: function(district, sect, party) {
-		this.setState({
-			district: district,
-			sect: sect,
-			party: party
-		});
+	handleFilterInput: function(key, value) {
+		var stateChange = {};
+		stateChange[key] = value;
+		console.log(value);
+		this.setState(stateChange);
 	},
 	render: function() {
 		return (
 			<div>
 				<SearchBar onUserInput={this.handleSearchInput} filterText={this.state.filterText} />
-				<FilterBar 
+				<FilterBar
 					onUserInput={this.handleFilterInput}
 					legislators={this.state.legislators}
 					district={this.state.district}
 					sect={this.state.sect}
 					party={this.state.party} />
-				<Table 
-					legislators={this.state.legislators} 
+				<Table
+					legislators={this.state.legislators}
 					filterText={this.state.filterText}
 					district={this.state.district}
+					social={this.state.social}
 					sect={this.state.sect}
-					party={this.state.party} />
+					party={this.state.party}
+					/>
 			</div>
 		);
 	}
