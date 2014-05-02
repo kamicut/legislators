@@ -3,7 +3,6 @@
 'use strict';
 var Card = React.createClass({displayName: 'Card',
 	render: function() {
-		console.log("rendering");
 		var legislator = this.props.legislator;
 		var email = legislator.email.trim().length > 0?
 			React.DOM.a( {href:'mailto:'+legislator.email.trim()}, "Email") :
@@ -41,7 +40,6 @@ var Table = React.createClass({displayName: 'Table',
 	render: function() {
 		var rows = [];
 		var lastCategory = null;
-		console.log(this.props)
 		this.props.legislators.forEach(function (legislator) {
 			var name = legislator.first_name + " " + legislator.last_name;
 			var canPush = true;
@@ -55,7 +53,6 @@ var Table = React.createClass({displayName: 'Table',
 				this.props.social.forEach(function(socialAccount) {
 					if (legislator[socialAccount].trim().length === 0) {
 						canPush = canPush && false;
-						console.log(canPush)
 					}
 				});
 			}
@@ -99,7 +96,6 @@ var FilterBar = React.createClass({displayName: 'FilterBar',
 		var districts = [];
 		var sects = [];
 		var parties = [];
-		console.log(this.props)
 		this.props.legislators.forEach(function(legislator) {
 			if  ((this.props.district !== 'All' && legislator.district !== this.props.district) ||
 				(this.props.sect !== 'All' && legislator.sect !== this.props.sect) ||
@@ -164,7 +160,6 @@ var FilterBar = React.createClass({displayName: 'FilterBar',
 
 var FilterableTable = React.createClass({displayName: 'FilterableTable',
 	componentDidMount: function() {
-		console.log("mounted");
 		$("#img").hide();
 	},
 	handleNewData: function(data) {
@@ -209,7 +204,6 @@ var FilterableTable = React.createClass({displayName: 'FilterableTable',
 	handleFilterInput: function(key, value) {
 		var stateChange = {};
 		stateChange[key] = value;
-		console.log(value);
 		this.setState(stateChange);
 	},
 	render: function() {

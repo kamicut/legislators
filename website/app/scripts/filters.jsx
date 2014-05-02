@@ -2,7 +2,6 @@
 'use strict';
 var Card = React.createClass({
 	render: function() {
-		console.log("rendering");
 		var legislator = this.props.legislator;
 		var email = legislator.email.trim().length > 0?
 			<a href={'mailto:'+legislator.email.trim()}>Email</a> :
@@ -40,7 +39,6 @@ var Table = React.createClass({
 	render: function() {
 		var rows = [];
 		var lastCategory = null;
-		console.log(this.props)
 		this.props.legislators.forEach(function (legislator) {
 			var name = legislator.first_name + " " + legislator.last_name;
 			var canPush = true;
@@ -54,7 +52,6 @@ var Table = React.createClass({
 				this.props.social.forEach(function(socialAccount) {
 					if (legislator[socialAccount].trim().length === 0) {
 						canPush = canPush && false;
-						console.log(canPush)
 					}
 				});
 			}
@@ -98,7 +95,6 @@ var FilterBar = React.createClass({
 		var districts = [];
 		var sects = [];
 		var parties = [];
-		console.log(this.props)
 		this.props.legislators.forEach(function(legislator) {
 			if  ((this.props.district !== 'All' && legislator.district !== this.props.district) ||
 				(this.props.sect !== 'All' && legislator.sect !== this.props.sect) ||
@@ -163,7 +159,6 @@ var FilterBar = React.createClass({
 
 var FilterableTable = React.createClass({
 	componentDidMount: function() {
-		console.log("mounted");
 		$("#img").hide();
 	},
 	handleNewData: function(data) {
@@ -185,7 +180,6 @@ var FilterableTable = React.createClass({
 			console.log("error");
 		})
 		.always(function() {
-
 			console.log("complete");
 		});
 
@@ -208,7 +202,6 @@ var FilterableTable = React.createClass({
 	handleFilterInput: function(key, value) {
 		var stateChange = {};
 		stateChange[key] = value;
-		console.log(value);
 		this.setState(stateChange);
 	},
 	render: function() {
